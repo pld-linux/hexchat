@@ -1,0 +1,83 @@
+Summary:	A popular and easy to use graphical IRC (chat) client
+Name:		hexchat
+Version:	2.16.1
+Release:	1
+License:	GPL v2+
+Source0:	https://dl.hexchat.net/hexchat/%{name}-%{version}.tar.xz
+# Source0-md5:	0af269d719c2c047310d44804bb31fdb
+URL:		https://hexchat.github.io
+BuildRequires:	dbus-glib-devel
+BuildRequires:	glib2-devel
+BuildRequires:	gtk+2-devel
+BuildRequires:	hicolor-icon-theme
+BuildRequires:	iso-codes
+BuildRequires:	libcanberra-devel
+BuildRequires:	libproxy-devel
+BuildRequires:	lua54-devel
+BuildRequires:	meson
+BuildRequires:	openssl-devel
+BuildRequires:	pciutils-devel
+BuildRequires:	perl-devel
+BuildRequires:	perl-ExtUtils-Embed
+BuildRequires:	python3-cffi
+BuildRequires:	python3-devel
+Requires:	enchant2
+Requires:	python3-cffi
+Obsoletes:	xchat < 2.16.1
+Recommends:	sound-theme-freedesktop
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%description
+HexChat is an easy to use graphical IRC chat client for the X Window
+System. It allows you to join multiple IRC channels (chat rooms) at
+the same time, talk publicly, private one-on-one conversations etc.
+Even file transfers are possible.
+
+%package devel
+Summary:	Development files for %{name}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+This package contains the development files for %{name}.
+
+%prep
+%autosetup
+
+%build
+%meson build \
+	-Dwith-lua=lua5.4
+%meson_build -C build
+
+%install
+rm -rf $RPM_BUILD_ROOT
+
+%meson_install -C build
+
+%find_lang %{name}
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files -f %{name}.lang
+%defattr(644,root,root,755)
+%doc readme.md
+%attr(755,root,root) %{_bindir}/hexchat
+%dir %{_libdir}/hexchat
+%dir %{_libdir}/hexchat/plugins
+%attr(755,root,root) %{_libdir}/hexchat/plugins/checksum.so
+%attr(755,root,root) %{_libdir}/hexchat/plugins/fishlim.so
+%attr(755,root,root) %{_libdir}/hexchat/plugins/lua.so
+%attr(755,root,root) %{_libdir}/hexchat/plugins/sysinfo.so
+%attr(755,root,root) %{_libdir}/hexchat/plugins/perl.so
+%attr(755,root,root) %{_libdir}/hexchat/plugins/python.so
+%{_libdir}/hexchat/python
+%{_desktopdir}/io.github.Hexchat.desktop
+%{_iconsdir}/hicolor/*/apps/io.github.Hexchat.*
+%{_datadir}/metainfo/io.github.Hexchat.appdata.xml
+%{_datadir}/dbus-1/services/org.hexchat.service.service
+%{_mandir}/man1/hexchat.1*
+
+%files devel
+%defattr(644,root,root,755)
+%{_includedir}/hexchat-plugin.h
+%{_pkgconfigdir}/hexchat-plugin.pc
