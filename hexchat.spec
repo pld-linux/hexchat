@@ -1,7 +1,7 @@
 Summary:	A popular and easy to use graphical IRC (chat) client
 Name:		hexchat
 Version:	2.16.1
-Release:	2
+Release:	3
 License:	GPL v2+
 Source0:	https://dl.hexchat.net/hexchat/%{name}-%{version}.tar.xz
 # Source0-md5:	0af269d719c2c047310d44804bb31fdb
@@ -54,7 +54,7 @@ rm -rf $RPM_BUILD_ROOT
 %meson_install -C build
 
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/ja{_JP,}
-%{__mv} $RPM_BUILD_ROOT%{_localedir}/{no,nb}
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/no
 
 %find_lang %{name}
 
