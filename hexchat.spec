@@ -9,21 +9,25 @@ Source0:	https://dl.hexchat.net/hexchat/%{name}-%{version}.tar.xz
 # Source0-md5:	0af269d719c2c047310d44804bb31fdb
 URL:		https://hexchat.github.io
 BuildRequires:	dbus-glib-devel
-BuildRequires:	glib2-devel
+BuildRequires:	glib2-devel >= 1:2.34.0
 BuildRequires:	gtk+2-devel
 BuildRequires:	hicolor-icon-theme
 BuildRequires:	iso-codes
-BuildRequires:	libcanberra-devel
+BuildRequires:	libcanberra-devel >= 0.22
 BuildRequires:	libproxy-devel
 BuildRequires:	lua54-devel
-BuildRequires:	meson
-BuildRequires:	openssl-devel
+BuildRequires:	meson >= 0.47.0
+BuildRequires:	ninja >= 1.5
+BuildRequires:	openssl-devel >= 0.9.8
 BuildRequires:	pciutils-devel
 BuildRequires:	perl-devel
 BuildRequires:	perl-ExtUtils-Embed
 BuildRequires:	python3-cffi
-BuildRequires:	python3-devel
+BuildRequires:	python3-devel >= 1:3.2
+BuildRequires:	rpmbuild(macros) >= 2.042
 Requires:	enchant2
+Requires:	glib2 >= 1:2.34.0
+Requires:	libcanberra >= 0.22
 Requires:	python3-cffi
 Obsoletes:	xchat < 2.16.1
 Recommends:	sound-theme-freedesktop
@@ -57,14 +61,17 @@ Ten pakiet zawiera pliki programistyczne HexChata.
 %setup -q
 
 %build
-%meson build \
+%meson \
+	-Ddbus=enabled \
+	-Dlibcanberra=enabled \
 	-Dwith-lua=lua5.4
-%meson_build -C build
+
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%meson_install -C build
+%meson_install
 
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/ja{_JP,}
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/no
