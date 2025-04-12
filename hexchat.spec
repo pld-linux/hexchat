@@ -1,4 +1,5 @@
 Summary:	A popular and easy to use graphical IRC (chat) client
+Summary(pl.UTF-8):	Popularny i łatwy w użyciu graficzny klient IRC
 Name:		hexchat
 Version:	2.16.1
 Release:	6
@@ -33,12 +34,22 @@ System. It allows you to join multiple IRC channels (chat rooms) at
 the same time, talk publicly, private one-on-one conversations etc.
 Even file transfers are possible.
 
+%description -l pl.UTF-8
+HexChat to łatwy w użyciu graficzny klient IRC dla systemu X Window.
+Pozwala dołączać do wielu kanałów IRC w tym samym czasie, rozmawiać
+publicznie, prywatnie z jedną osobą itp. Możliwe jest też przesyłanie
+plików.
+
 %package devel
-Summary:	Development files for %{name}
+Summary:	Development files for HexChat plugins
+Summary(pl.UTF-8):	Pliki programistyczne dla wtyczek HexChata
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description devel
-This package contains the development files for %{name}.
+This package contains the development files for HexChat.
+
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki programistyczne HexChata.
 
 %prep
 %autosetup
