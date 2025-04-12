@@ -54,7 +54,7 @@ This package contains the development files for HexChat.
 Ten pakiet zawiera pliki programistyczne HexChata.
 
 %prep
-%autosetup
+%setup -q
 
 %build
 %meson build \
