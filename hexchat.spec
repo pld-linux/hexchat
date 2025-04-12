@@ -4,6 +4,7 @@ Name:		hexchat
 Version:	2.16.1
 Release:	6
 License:	GPL v2+
+Group:		X11/Applications/Networking
 Source0:	https://dl.hexchat.net/hexchat/%{name}-%{version}.tar.xz
 # Source0-md5:	0af269d719c2c047310d44804bb31fdb
 URL:		https://hexchat.github.io
@@ -43,6 +44,7 @@ plików.
 %package devel
 Summary:	Development files for HexChat plugins
 Summary(pl.UTF-8):	Pliki programistyczne dla wtyczek HexChata
+Group:		Development/Libraries
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description devel
